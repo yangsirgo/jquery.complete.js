@@ -8,14 +8,27 @@
     <title>Document</title>
     <script src="jquery.min.js"></script>
     <script src="jquery.autocomplete.js"></script>
+    <style>
+        body { font-family: sans-serif; font-size: 14px; line-height: 1.6em; margin: 0; padding: 0; }
+        .container { width: 800px; margin: 0 auto; }
+
+        .autocomplete-suggestions { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; border: 1px solid #999; background: #FFF; cursor: default; overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); }
+        .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+        .autocomplete-no-suggestion { padding: 2px 5px;}
+        .autocomplete-selected { background: #F0F0F0; }
+        .autocomplete-suggestions strong { font-weight: bold; color: #000; }
+        .autocomplete-group { padding: 2px 5px; font-weight: bold; font-size: 16px; color: #000; display: block; border-bottom: 1px solid #000; }
+
+        input { font-size: 28px; padding: 10px; border: 1px solid #CCC; display: block; margin: 20px 0; }
+    </style>
 </head>
 <body>
 <input type="text" id="autocomplete">
 <script>
     $("#autocomplete").autocomplete({
         serviceUrl:'http://192.168.0.126/api/search',
-        paramName:'keyword',
-        type:'POST',
+        paramName:'keyword',//设置请求参数，默认是query
+        type:'POST',//设置请求方法
         transformResult: function(response) {//对返回数据进行操作
             return {
                 suggestions: $.map(JSON.parse(response), function(dataItem) {
@@ -26,9 +39,11 @@
             };
         },
         onSelect:function(a){
-            console.log(a);
+            console.log(a);//选择回调
         }
     })
+
+//   github 地址：https://github.com/devbridge/jQuery-Autocomplete
 </script>
 </body>
 </html>
