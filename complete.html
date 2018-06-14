@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.min.js"></script>
+    <script src="jquery.autocomplete.js"></script>
+</head>
+<body>
+<input type="text" id="autocomplete">
+<script>
+    $("#autocomplete").autocomplete({
+        serviceUrl:'http://192.168.0.126/api/search',
+        paramName:'keyword',
+        type:'POST',
+        transformResult: function(response) {//对返回数据进行操作
+            return {
+                suggestions: $.map(JSON.parse(response), function(dataItem) {
+                    return {
+                        value: dataItem.name
+                    };
+                })
+            };
+        },
+        onSelect:function(a){
+            console.log(a);
+        }
+    })
+</script>
+</body>
+</html>
